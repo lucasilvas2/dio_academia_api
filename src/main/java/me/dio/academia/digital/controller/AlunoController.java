@@ -8,6 +8,7 @@ import me.dio.academia.digital.service.impl.AlunoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.http.HttpResponse;
 import java.util.List;
 
@@ -19,12 +20,12 @@ public class AlunoController {
     private AlunoServiceImpl service;
 
     @GetMapping(value = "/buscar")
-    public List<Aluno> getAll(){
-        return service.getAll();
+    public List<Aluno> getAll(@RequestParam(value = "dataDeNascimento", required = false) String dataDenascimento){
+        return service.getAll(dataDenascimento);
     }
 
     @GetMapping(value = "/buscar/{id}")
-    public Aluno getAlunoById(@PathVariable Long id){
+    public Aluno getAlunoById(@Valid @PathVariable Long id){
         return service.get(id);
     }
 
@@ -45,6 +46,6 @@ public class AlunoController {
 
     @GetMapping(value = "/todasAvaliacoes")
     public List<AvaliacaoFisica> buscarTodasAvaliacoes(@PathVariable Long id){
-        return service.buscarTodasAvaiacoes(id);
+        return service.buscarTodasAvaliacoes(id);
     }
 }

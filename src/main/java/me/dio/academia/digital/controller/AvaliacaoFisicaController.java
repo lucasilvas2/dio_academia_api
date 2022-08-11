@@ -15,6 +15,10 @@ public class AvaliacaoFisicaController {
     @Autowired
     private AvaliacaoFisicaServiceImpl service;
 
+    @GetMapping(value = "/buscar")
+    public List<AvaliacaoFisica> getAll(){
+        return service.getAll();
+    }
     @PostMapping(value = "/cadastrar")
     public AvaliacaoFisica create(AvaliacaoFisicaForm form){
         return service.create(form);

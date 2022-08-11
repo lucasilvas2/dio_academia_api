@@ -1,4 +1,19 @@
 package me.dio.academia.digital.repository;
 
-public interface MatriculaRepository {
+import me.dio.academia.digital.entity.Matricula;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+
+public interface MatriculaRepository extends JpaRepository<Matricula, Long> {
+
+    @Query(value = "SELECT * FROM matricula m" +
+            "INNER JOIN tb_alunos a ON m.aluno = a.id" +
+            "WHERE a.bairro = :bairro", nativeQuery = true)
+
+//    @Query("FROM Matricula m WHERE m.aluno.bairro = :bairro")
+//    List<Matricula> findAlunosMatriculadosPorBairro(String bairro);
+
+    List<Matricula> findByAlunoBairro(String bairro);
 }
